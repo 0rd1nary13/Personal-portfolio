@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Photographer Portfolio</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/admin.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Login Form (shown when not authenticated) -->
+    <div id="loginForm" class="login-container">
+        <div class="login-box">
+            <h2>Admin Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn-primary">Login</button>
+                <div id="login-error" class="error-message"></div>
+            </form>
+            <div class="login-info">
+                <p><strong>Default credentials:</strong></p>
+                <p>Username: admin</p>
+                <p>Password: admin123</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard (shown when authenticated) -->
+    <div id="adminDashboard" class="admin-dashboard" style="display: none;">
+        <!-- Navigation -->
+        <nav class="admin-nav">
+            <div class="nav-container">
+                <div class="nav-brand">
+                    <h1>Admin Dashboard</h1>
+                </div>
+                <div class="nav-menu">
+                    <a href="/" class="nav-link">View Site</a>
+                    <button onclick="logout()" class="nav-link logout-btn">Logout</button>
+                </div>
+            </div>
+        </nav>
+
+        <div class="admin-container">
+            <!-- Tabs -->
+            <div class="admin-tabs">
+                <button class="tab-btn active" onclick="showTab('artworks')">Manage Artworks</button>
+                <button class="tab-btn" onclick="showTab('profile')">Profile Settings</button>
+            </div>
+
+            <!-- Artworks Tab -->
+            <div id="artworks-tab" class="tab-content active">
+                <div class="tab-header">
+                    <h2>Manage Artworks</h2>
+                    <button class="btn-primary" onclick="showArtworkForm()">Add New Artwork</button>
+                </div>
+
+                <!-- Artwork Form -->
+                <div id="artworkForm" class="artwork-form" style="display: none;">
+                    <h3 id="formTitle">Add New Artwork</h3>
+                    <form id="artwork-form" enctype="multipart/form-data">
+                        <input type="hidden" id="artworkId" name="artworkId">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="artworkTitle">Title:</label>
+                                <input type="text" id="artworkTitle" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="artworkLocation">Location:</label>
+                                <input type="text" id="artworkLocation" name="location">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="artworkDescription">Description:</label>
+                            <textarea id="artworkDescription" name="description" rows="4"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="artworkImage">Image:</label>
+                            <input type="file" id="artworkImage" name="image" accept="image/*">
+                            <div id="currentImage" class="current-image" style="display: none;">
+                                <p>Current image:</p>
+                                <img id="currentImagePreview" src="" alt="Current" style="max-width: 200px; height: auto;">
+                            </div>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary">Save Artwork</button>
+                            <button type="button" class="btn-secondary" onclick="hideArtworkForm()">Cancel</button>
+                        </div>
+                        <div id="form-error" class="error-message"></div>
+                    </form>
+                </div>
+
+                <!-- Artworks List -->
+                <div class="artworks-list" id="artworks-list">
+                    <!-- Artworks will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Profile Tab -->
+            <div id="profile-tab" class="tab-content">
+                <div class="tab-header">
+                    <h2>Profile Settings</h2>
+                </div>
+                <form id="profile-form" class="profile-form">
+                    <div class="form-group">
+                        <label for="profileName">Name:</label>
+                        <input type="text" id="profileName" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="profileEmail">Email:</label>
+                        <input type="email" id="profileEmail" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="profileBio">Biography:</label>
+                        <textarea id="profileBio" name="bio" rows="6"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Update Profile</button>
+                    <div id="profile-error" class="error-message"></div>
+                    <div id="profile-success" class="success-message"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin.js"></script>
+</body>
+</html>
